@@ -1,0 +1,44 @@
+externalIp: 127.0.0.1
+
+# Persistent Storage is optional, you can leave the keys out.
+storageClass:
+  name:
+    varData: microk8s-hostpath
+    varDataMiner: openebs-jiva-custom
+
+PersistentVolumeClaim:
+  size:
+    varData: 100Gi
+    varDataMiner: 10Mi
+  create:
+    varData: true 
+    varDataMiner: true
+
+image:
+  pullPolicy: IfNotPresent
+  repository: quay.io/team-helium/validator
+  variant: miner-amd64_testnet_val0.1.82 # testnet, .Chart.AppVersion = 0.1.82
+  # variant: miner-arm64_validator # mainnet, .Chart.AppVersion = 1.0.0
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+

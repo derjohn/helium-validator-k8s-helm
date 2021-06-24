@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ include "helium-validator.fullname" . }}"
+  labels:
+    {{- include "helium-validator.labels" . | nindent 4 }}
+  annotations:
+    metallb.universe.tf/address-pool: "default"
+    metallb.universe.tf/allow-shared-ip: "true"
+spec:
+  type: LoadBalancer
+  externalIPs: ["{{ .Values.externalIp }}"]
+  ports:
+    - name: helium-validator
+      port: 2154
+      targetPort: 2154
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: "{{ include "helium-validator.fullname" . }}"
+

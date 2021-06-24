@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "helium-validator.fullname" . }}"
+spec:
+{{- with .Values.imagePullSecrets }}
+  imagePullSecrets:
+    {{- toYaml . | nindent 4 }}
+{{- end }}
+  terminationGracePeriodSeconds: 120
+  containers:
+  - name: helium-miner-val
+    image: "{{ .Values.image.repository }}:{{ .Values.image.variant }}{{ .Chart.AppVersion }}"
+    imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+    env:
+    - name: NAT_EXTERNAL_IP
+      value: "{{ .Values.externalIp }}"
+    ports:
+    - containerPort: 2154
+      name: helium
+    livenessProbe:
+      tcpSocket:
+        port: 2154
+      initialDelaySeconds: 180
+      periodSeconds: 180
+    resources:
+      {{- toYaml .Values.resources | nindent 6 }}
+    volumeMounts:
+    - name: helium-validator-var-data
+      mountPath: /var/data
+    - name: helium-validator-var-data-miner
+      mountPath: /var/data/miner
+  volumes:
+    - name: "{{ include "helium-validator.fullname" . }}-var-data"
+      persistentVolumeClaim:
+        claimName: helium-validator-var-data
+    - name: "{{ include "helium-validator.fullname" . }}-var-data-miner"
+      persistentVolumeClaim:
+        claimName: helium-validator-var-data-miner
+  {{- with .Values.nodeSelector }}
+    nodeSelector:
+      {{- toYaml . | nindent 8 }}
+    {{- end }}
+  {{- with .Values.affinity }}
+    affinity:
+      {{- toYaml . | nindent 8 }}
+  {{- end }}
+  {{- with .Values.tolerations }}
+    tolerations:
+      {{- toYaml . | nindent 8 }}
+  {{- end }}
+

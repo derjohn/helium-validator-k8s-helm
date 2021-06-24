@@ -1,0 +1,13 @@
+{{- if .Values.PersistentVolumeClaim.create.varData -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: "{{ include "helium-validator.fullname" . }}-var-data"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "{{ .Values.storageClass.name.varData }}"
+  resources:
+    requests:
+      storage: "{{ .Values.PersistentVolumeClaim.size.varData }}"
+{{- end -}}
