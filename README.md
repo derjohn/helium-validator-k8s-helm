@@ -27,3 +27,6 @@ See values.yaml in this repo.
 # Todo
 This is version 0.1.0 of the chart. There is probably stuff to do :) PR welcome.
  
+# Managed Service
+If this is too technical for for, or you want to evade legal and tax issues, you can book a validator as managed service here:
+[https://validators.cloud](https://validators.cloud)
