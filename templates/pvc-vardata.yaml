@@ -1,4 +1,4 @@
-{{- if .Values.PersistentVolumeClaim.create.varData -}}
+{{- if .Values.persistentVolumeClaim.create.varData -}}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -6,8 +6,8 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: "{{ .Values.storageClass.name.varData }}"
+  storageClassName: "{{ .Values.persistentVolumeClaim.storageClass.varData }}"
   resources:
     requests:
-      storage: "{{ .Values.PersistentVolumeClaim.size.varData }}"
+      storage: "{{ .Values.persistentVolumeClaim.size.varData }}"
 {{- end -}}

@@ -1,39 +1,39 @@
-externalIp: 127.0.0.1
+publicIp: 127.0.0.1
 
 # Persistent Storage is optional, you can leave the keys out.
-storageClass:
-  name:
-    varData: microk8s-hostpath
-    varDataMiner: openebs-jiva-custom
-
-PersistentVolumeClaim:
-  size:
-    varData: 100Gi
-    varDataMiner: 10Mi
-  create:
-    varData: true 
-    varDataMiner: true
+# Example:
+#persistentVolumeClaim:
+#  size:
+#    varData: "100Gi"
+#    varDataMiner: "1Gi"
+#  create:
+#    varData: true
+#    varDataMiner: true
+#  storageClass:
+#    varData: "cstor-csi"
+#    varDataMiner: "cstor-csi"
 
 image:
   pullPolicy: IfNotPresent
   repository: quay.io/team-helium/validator
-  variant: miner-amd64_testnet_val0.1.82 # testnet, .Chart.AppVersion = 0.1.82
-  # variant: miner-arm64_validator # mainnet, .Chart.AppVersion = 1.0.0
+  # tag: miner-amd64_testnet_val0.1.82 # testnet
+  tag: miner-amd64_validator1.0.1 # mainnet
 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-resources: {}
+# resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
+resources:
+  limits:
+    cpu: 3500m
   #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
+  requests:
+    cpu: 1300m
   #   memory: 128Mi
 
 nodeSelector: {}
@@ -41,4 +41,14 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+podAnnotations: {}
+
+serviceAnnotations: {}
+# You might need annotations for your ingress / service to pin the right IP, e.g.
+# serviceAnnotations:
+#   "metallb.universe.tf/address-pool": "helium-validators-01"
+
+podSecurityContext: {}
+  # fsGroup: 2000
 

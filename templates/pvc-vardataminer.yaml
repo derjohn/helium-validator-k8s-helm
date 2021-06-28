@@ -1,4 +1,4 @@
-{{- if .Values.PersistentVolumeClaim.create.varDataMiner -}}
+{{- if .Values.persistentVolumeClaim.create.varDataMiner -}}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -6,9 +6,9 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: "{{ .Values.storageClass.name.varDataMiner }}"
+  storageClassName: "{{ .Values.persistentVolumeClaim.storageClass.varDataMiner }}"
   resources:
     requests:
-      storage: "{{ .Values.PersistentVolumeClaim.size.varDataMiner }}"
+      storage: "{{ .Values.persistentVolumeClaim.size.varDataMiner }}"
 {{- end -}}
 

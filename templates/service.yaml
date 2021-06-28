@@ -5,16 +5,18 @@ metadata:
   labels:
     {{- include "helium-validator.labels" . | nindent 4 }}
   annotations:
-    metallb.universe.tf/address-pool: "default"
-    metallb.universe.tf/allow-shared-ip: "true"
+  {{- with .Values.serviceAnnotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   type: LoadBalancer
-  externalIPs: ["{{ .Values.externalIp }}"]
+  loadBalancerIP: "{{ .Values.publicIp }}"
+  externalTrafficPolicy: Cluster
   ports:
     - name: helium-validator
       port: 2154
       targetPort: 2154
       protocol: TCP
   selector:
-    app.kubernetes.io/name: "{{ include "helium-validator.fullname" . }}"
+    app.kubernetes.io/name: "helium-validator"
 

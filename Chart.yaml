@@ -4,5 +4,5 @@ description: The helium validator for the helium blockchain
 
 type: application
 version: 0.1.0
-appVersion: 0.1.82
+appVersion: 1.0.0
 
