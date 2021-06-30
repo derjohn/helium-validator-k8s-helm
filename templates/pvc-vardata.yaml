@@ -1,4 +1,4 @@
-{{- if .Values.persistentVolumeClaim.create.varData -}}
+{{ if .Values.persistentVolumeClaim.create.varData -}}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -10,4 +10,5 @@ spec:
   resources:
     requests:
       storage: "{{ .Values.persistentVolumeClaim.size.varData }}"
-{{- end -}}
+{{ end -}}
+

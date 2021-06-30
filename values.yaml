@@ -44,11 +44,16 @@ affinity: {}
 
 podAnnotations: {}
 
+podSecurityContext: {}
+  # fsGroup: 2000
+
+service:
+  setLoadBalancerIP: true
+  setExternalIp: false
+  externalTrafficPolicy: Cluster
+
 serviceAnnotations: {}
 # You might need annotations for your ingress / service to pin the right IP, e.g.
 # serviceAnnotations:
 #   "metallb.universe.tf/address-pool": "helium-validators-01"
-
-podSecurityContext: {}
-  # fsGroup: 2000
 

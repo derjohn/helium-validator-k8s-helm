@@ -10,8 +10,13 @@ metadata:
   {{- end }}
 spec:
   type: LoadBalancer
+  {{- if .Values.setLoadBalancerIP -}}
   loadBalancerIP: "{{ .Values.publicIp }}"
-  externalTrafficPolicy: Cluster
+  {{- end }}
+  {{- if .Values.setExternalIp -}}
+  externalIp: "{{ .Values.publicIp }}"
+  {{- end }}
+  externalTrafficPolicy: "{{ .Values.service.externalTrafficPolicy }}"
   ports:
     - name: helium-validator
       port: 2154

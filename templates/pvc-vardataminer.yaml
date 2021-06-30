@@ -1,4 +1,4 @@
-{{- if .Values.persistentVolumeClaim.create.varDataMiner -}}
+{{ if .Values.persistentVolumeClaim.create.varDataMiner -}}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -10,5 +10,5 @@ spec:
   resources:
     requests:
       storage: "{{ .Values.persistentVolumeClaim.size.varDataMiner }}"
-{{- end -}}
+{{ end -}}
 
